@@ -5,15 +5,14 @@ public:
         int index = 0;
         int returnIndex = -1;
         int sum = 0;
-        for(auto it : points){
-            if(it[0] == x || it[1] == y){
-                sum = (abs(x - it[0]) + abs(y - it[1]));
+        for(int it = 0; it < points.size(); it++){
+            if(points[it][0] == x || points[it][1] == y){
+                sum = (abs(x - points[it][0]) + abs(y - points[it][1]));
                 if(minDist > sum){
                     minDist = sum;
-                    returnIndex = index;
+                    returnIndex = it;
                 }
             }
-            index++;
         }
         return returnIndex;
     }
