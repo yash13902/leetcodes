@@ -1,25 +1,24 @@
 class Solution {
 public:
     int nearestValidPoint(int x, int y, vector<vector<int>>& points) { 
-        unordered_map<int, int> valid;
-        int sum = 0;
+        int minDist = INT_MAX;
+        int index = 0;
+        int returnIndex = 0;
+        bool flag = false;
         for(auto it : points){
             if(it[0] == x || it[1] == y){
-                valid.insert({
-                    (abs(x - it[0]) + abs(y - it[1])), sum
-                });
+                flag = true;
+                if(minDist > (abs(x - it[0]) + abs(y - it[1]))){
+                    minDist = (abs(x - it[0]) + abs(y - it[1]));
+                    returnIndex = index;
+                }
             }
-            sum++;
+            index++;
         }
-        if(valid.size() == 0){
+        if(flag){
+            return returnIndex;
+        }else{
             return -1;
         }
-        auto min = valid.begin();
-        for(auto it = valid.begin(); it != valid.end(); it++){
-            if(it->first < min->first){
-                min = it;
-            }    
-        }
-        return min->second;
     }
 };
