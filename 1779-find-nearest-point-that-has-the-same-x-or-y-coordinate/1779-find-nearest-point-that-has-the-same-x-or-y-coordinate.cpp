@@ -2,7 +2,6 @@ class Solution {
 public:
     int nearestValidPoint(int x, int y, vector<vector<int>>& points) { 
         int minDist = INT_MAX;
-        int index = 0;
         int returnIndex = -1;
         int sum = 0;
         for(int it = 0; it < points.size(); it++){
