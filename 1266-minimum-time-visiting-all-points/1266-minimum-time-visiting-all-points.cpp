@@ -1,30 +1,12 @@
 class Solution {
 public:
     int minTimeToVisitAllPoints(vector<vector<int>>& points) {
-        vector<vector<int>>::iterator p = points.begin();
-        vector<vector<int>>::iterator it = points.begin();
-        int time = 0;
-        while(it < points.end()){
-            while(((*p).at(0) != (*it).at(0)) && ((*p).at(1) != (*it).at(1))){
-                if((*it).at(0) > (*p).at(0)){
-                    ((*p).at(0))++;
-                } else{
-                    ((*p).at(0))--;
-                }
-                if((*it).at(1) > (*p).at(1)){
-                    ((*p).at(1))++;
-                } else{
-                    ((*p).at(1))--;
-                }
-                time++;
-            }
-            if((*p).at(0) == (*it).at(0)){
-                time += abs(((*p).at(1) - (*it).at(1)));
-            } else{
-                time += abs(((*p).at(0) - (*it).at(0)));
-            }
-            p = it;
-            it++;
+        int time = 0, x, y, i;
+        for(i = 0; i < points.size()-1; i++){
+            x = abs(points[i+1][0] - points[i][0]);
+            y = abs(points[i+1][1] - points[i][1]);
+            
+            time += max(x,y);
         }
         return time;
     }
