@@ -3,11 +3,9 @@ public:
     int nearestValidPoint(int x, int y, vector<vector<int>>& points) { 
         int minDist = INT_MAX;
         int index = 0;
-        int returnIndex = 0;
-        bool flag = false;
+        int returnIndex = -1;
         for(auto it : points){
             if(it[0] == x || it[1] == y){
-                flag = true;
                 if(minDist > (abs(x - it[0]) + abs(y - it[1]))){
                     minDist = (abs(x - it[0]) + abs(y - it[1]));
                     returnIndex = index;
@@ -15,10 +13,6 @@ public:
             }
             index++;
         }
-        if(flag){
-            return returnIndex;
-        }else{
-            return -1;
-        }
+        return returnIndex;
     }
 };
