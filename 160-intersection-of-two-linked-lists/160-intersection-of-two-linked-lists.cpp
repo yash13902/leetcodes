@@ -13,16 +13,9 @@ public:
         ListNode *p1 = headA;
         ListNode *p2 = headB;
         
-        if(p1 == NULL || p2 == NULL) return NULL;
-        
-        while(p1 != NULL && p2 != NULL && p1 != p2){
-            p1 = p1->next;
-            p2 = p2->next;
-            if(p1 == p2){
-                break;
-            }
-            if(p1 == NULL) p1 = headB;
-            if(p2 == NULL) p2 = headA;
+        while(p1 != p2){
+            p1 = p1?p1->next:headB;
+            p2 = p2?p2->next:headA;
         }
         return p1;
     }
