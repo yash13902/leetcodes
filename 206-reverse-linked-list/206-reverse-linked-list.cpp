@@ -14,17 +14,19 @@ public:
         if(head == NULL || head->next == NULL){
             return head;
         }
-        vector<int> list;
-        ListNode* temp = head;
-        while(temp != NULL){
-            list.insert(list.end(), temp->val);
-            temp = temp->next;
+        int c = 0;
+        ListNode *prev = NULL, *cur = head, *temp = head->next;
+        while(temp != NULL || c == 0){
+            cur->next = prev;
+            prev = cur;
+            cur = temp;
+            if(temp != NULL){
+                temp = temp->next;
+            } else{
+                c = 1;
+            }
+            
         }
-        temp = head;
-        for(auto it = list.rbegin(); it != list.rend(); it++){
-            head->val = *it;
-            head = head->next;
-        }   
-        return temp;
+        return prev;
     }
 };
