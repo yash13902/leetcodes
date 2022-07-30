@@ -10,8 +10,15 @@ public:
     }
     
     int uniquePaths(int m, int n) {
-        vector<vector<int>> dp(m, vector<int>(n,-1));
-        return ways(0,0,m,n,dp);
+        // vector<vector<int>> dp(m, vector<int>(n,-1));
+        // return ways(0,0,m,n,dp);
+        int N = m+n-2;
+        int r = m-1;
+        double res = 1;
         
+        for(int i=1;i<=r;i++){
+            res = res * (N-r+i)/i;
+        }
+        return (int)res;
     }
 };
