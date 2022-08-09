@@ -8,7 +8,7 @@ public:
         while(ei < nums.size()-1){
             if(nums[ei] == nums[ei+1]-1){
                 ei++;
-                max_len = max(max_len,ei-si+1-dupli);
+                max_len = max(max_len, ei-si+1-dupli);
             }else if(nums[ei] == nums[ei+1]){
                 ei++;
                 dupli++;
@@ -17,7 +17,6 @@ public:
                 si = ei;
                 dupli=0;
             }
-            
         }
         return max_len;
     }
