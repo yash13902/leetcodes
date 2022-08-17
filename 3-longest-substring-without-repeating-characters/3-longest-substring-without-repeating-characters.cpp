@@ -2,7 +2,7 @@ class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
         
-        /*discussion approach
+        /*discussion approach same as best approach
         vector<int> d(256, -1);
         int maxLen=0,start=-1;
         for(int i=0;i<s.size();i++){
@@ -45,10 +45,10 @@ public:
         
         // best approach
         
-        map<char, int> m;
+        vector<int> m(256, -1);
         int left=0,right=0,n=s.size(),len=0;
         while(right < n){
-            if(m.find(s[right]) != m.end()){
+            if(m[s[right]] != -1){
                 left = max(left, m[s[right]]+1);
             }
             m[s[right]] = right;
