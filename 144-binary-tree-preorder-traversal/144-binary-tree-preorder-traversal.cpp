@@ -17,14 +17,12 @@ public:
         if (root == NULL)
             return preorder;
         stack.push(root);
-        while(!stack.empty()) {
-            TreeNode* curr = stack.top();
+        while(!stack.empty()){
+            TreeNode* node = stack.top();
+            preorder.push_back(node->val);
             stack.pop();
-            preorder.push_back(curr->val);
-            if (curr->right != NULL)
-                stack.push(curr->right);
-            if (curr->left != NULL)
-                stack.push(curr->left);
+            if(node->right!=NULL) stack.push(node->right);
+            if(node->left!=NULL) stack.push(node->left);
         }
         return preorder;
     }
