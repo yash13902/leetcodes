@@ -42,7 +42,6 @@ public:
         //     head = head->next;
         // }
         // return flag;
-        
         temp = head;
         return pal(head);
     }
