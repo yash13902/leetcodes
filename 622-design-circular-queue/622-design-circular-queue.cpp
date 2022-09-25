@@ -1,11 +1,11 @@
 class MyCircularQueue {
 public:
-    // vector<int> v; 
-    unordered_map<int,int> v;
+    vector<int> v; 
+    // unordered_map<int,int> v;
     int size,front=-1,rear=-1;
     MyCircularQueue(int k) {
         size = k;
-        // v(size) {};
+        v.resize(size);
     }
     
     bool enQueue(int value) {
