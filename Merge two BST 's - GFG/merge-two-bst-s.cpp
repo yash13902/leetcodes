@@ -99,6 +99,17 @@ struct Node {
 };
 */
 #include<bits/stdc++.h> 
+
+void insert(stack<Node*> &s, vector<int> &ans, Node* temp){
+    s.pop();
+    ans.push_back(temp->data);
+    temp = temp->right;
+    while(temp){
+       s.push(temp);
+       temp = temp->left;
+    }
+}
+
 class Solution
 {
     public:
@@ -124,46 +135,22 @@ class Solution
            if(s1.empty()){
                while(!s2.empty()){
                    temp = s2.top();
-                   s2.pop();
-                   ans.push_back(temp->data);
-                   temp = temp->right;
-                   while(temp){
-                       s2.push(temp);
-                       temp = temp->left;
-                   }
+                   insert(s2, ans, temp);
                }
            }
            else if(s2.empty()){
                while(!s1.empty()){
                    temp = s1.top();
-                   s1.pop();
-                   ans.push_back(temp->data);
-                   temp = temp->right;
-                   while(temp){
-                       s1.push(temp);
-                       temp = temp->left;
-                   }
+                   insert(s1, ans, temp);
                }
            }
            else{
                temp = s1.top();
                temp1 = s2.top();
                if(temp->data <= temp1->data){
-                   ans.push_back(temp->data);
-                   s1.pop();
-                   temp = temp->right;
-                   while(temp){
-                       s1.push(temp);
-                       temp = temp->left;
-                   }
+                   insert(s1, ans, temp);
                }else{
-                   ans.push_back(temp1->data);
-                   s2.pop();
-                   temp1 = temp1->right;
-                   while(temp1){
-                       s2.push(temp1);
-                       temp1 = temp1->left;
-                   }
+                   insert(s2, ans, temp1);
                }
            }
        }
