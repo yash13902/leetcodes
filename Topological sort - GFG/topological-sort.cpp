@@ -10,28 +10,51 @@ class Solution
 	#define si stack<int>
 	//Function to return list containing vertices in Topological order. 
 	
-	void dfs(int i, vi &vis, si &s, vi adj[]){
-	    vis[i] = 1;
-	    for(auto c : adj[i]){
-	        if(!vis[c]) dfs(c, vis, s, adj);
-	    }
-	    s.push(i);
-	    return;
-	}
+// 	void dfs(int i, vi &vis, si &s, vi adj[]){
+// 	    vis[i] = 1;
+// 	    for(auto c : adj[i]){
+// 	        if(!vis[c]) dfs(c, vis, s, adj);
+// 	    }
+// 	    s.push(i);
+// 	    return;
+// 	}
 	
 	vector<int> topoSort(int v, vector<int> adj[]) 
 	{   
 	    // code here
-	    vi vis(v,0), ans;
-	    si s;
-	    for(int i=0;i<v;i++){
-	        if(!vis[i]) dfs(i, vis, s, adj);
-	    }
-	    while(!s.empty()){
-	        ans.push_back(s.top());
-	        s.pop();
-	    }
-	    return ans;
+	   // vi vis(v,0), ans;
+	   // si s;
+	   // for(int i=0;i<v;i++){
+	   //     if(!vis[i]) dfs(i, vis, s, adj);
+	   // }
+	   // while(!s.empty()){
+	   //     ans.push_back(s.top());
+	   //     s.pop();
+	   // }
+	   // return ans;
+	   
+	   int indegree[v] = {0};
+	   for(int i=0;i<v;i++){
+	       for(auto c : adj[i]){
+	           indegree[c]++;
+	       }
+	   }
+	   queue<int> q;
+	   for(int i=0;i<v;i++){
+	       if(indegree[i] == 0) q.push(i);
+	   }
+	   vector<int> topo;
+	   while(!q.empty()){
+	       int node = q.front();
+	       q.pop();
+	       topo.push_back(node);
+	       
+	       for(auto c : adj[node]){
+	           indegree[c]--;
+	           if(indegree[c] == 0) q.push(c);
+	       }
+	   }
+	   return topo;
 	}
 };
 
