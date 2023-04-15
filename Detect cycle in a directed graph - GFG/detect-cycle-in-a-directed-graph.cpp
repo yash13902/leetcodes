@@ -21,13 +21,36 @@ class Solution {
     
     bool isCyclic(int v, vector<int> adj[]) {
         // code here
-        vector<int> vis(v);
-        vector<int> pathvis(v);
+        // vector<int> vis(v);
+        // vector<int> pathvis(v);
+        // for(int i=0;i<v;i++){
+        //     if(!vis[i])
+        //         if(dfs(adj, vis, pathvis, i)) return true;
+        // }
+        // return false;
+        
+        vector<int> indegree(v,0);
         for(int i=0;i<v;i++){
-            if(!vis[i])
-                if(dfs(adj, vis, pathvis, i)) return true;
+            for(auto c : adj[i]) indegree[c]++;
         }
-        return false;
+        queue<int> q;
+        for(int i=0;i<v;i++){
+            if(indegree[i] == 0) q.push(i);
+        }
+        
+        vector<int> topo;
+        while(!q.empty()){
+            int node = q.front();
+            q.pop();
+            topo.push_back(node);
+            
+            for(auto c : adj[node]){
+                indegree[c]--;
+                if(indegree[c] == 0) q.push(c);
+            }
+        }
+        if(topo.size() == v) return false;
+        return true;
     }
 };
 
