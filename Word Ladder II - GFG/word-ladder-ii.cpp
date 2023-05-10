@@ -26,6 +26,7 @@ public:
                 for(auto it : usedOnLvl){
                     s.erase(it);
                 }
+                usedOnLvl.clear();
             }
             string word = temp.back();
             if(word == endWord){
