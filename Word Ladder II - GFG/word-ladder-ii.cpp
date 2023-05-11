@@ -11,46 +11,44 @@ public:
     vector<vector<string>> findSequences(string beginWord, string endWord, vector<string>& wordList) {
         // code here
         set<string> s(wordList.begin(), wordList.end());
-        if(s.find(endWord) == s.end()) return {};
+        if(s.count(endWord) == 0) return {};
         queue<vector<string>> q;
         q.push({beginWord});
-        vector<string> usedOnLvl;
-        usedOnLvl.push_back(beginWord);
+        vector<string> used;
+        used.push_back(beginWord);
+        int level=0;
         vector<vector<string>> ans;
-        int level = 0;
         while(!q.empty()){
             vector<string> temp = q.front();
             q.pop();
             if(temp.size() > level){
                 level++;
-                for(auto it : usedOnLvl){
+                for(auto it : used){
                     s.erase(it);
                 }
-                usedOnLvl.clear();
+                used.clear();
             }
             string word = temp.back();
             if(word == endWord){
-                if(ans.size() == 0){
-                    ans.push_back(temp);
-                }else if(ans[0].size() == temp.size()){
-                    ans.push_back(temp);
-                }
+                if(ans.size() == 0) ans.push_back(temp);
+                else if(ans[0].size() == temp.size()) ans.push_back(temp);
             }
             for(int i=0;i<word.size();i++){
-                char original = word[i];
+                char o = word[i];
                 for(char c='a';c<='z';c++){
                     word[i] = c;
                     if(s.count(word) > 0){
                         temp.push_back(word);
                         q.push(temp);
-                        usedOnLvl.push_back(word);
+                        used.push_back(word);
                         temp.pop_back();
                     }
                 }
-                word[i] = original;
+                word[i] = o;
             }
         }
         return ans;
+        
     }
 };
 
