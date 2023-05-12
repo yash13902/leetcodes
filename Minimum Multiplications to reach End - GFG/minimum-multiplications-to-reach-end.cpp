@@ -18,24 +18,22 @@ class Solution {
         // code here
         vector<int> dist(mod, INT_MAX);
         dist[start] = 0;
-        set<pi> pq;
-        pq.insert({0,start});
+        priority_queue<pi, vector<pi>, greater<pi>> pq;
+        pq.push({0,start});
         while(!pq.empty()){
-            pi temp = *(pq.begin());
-            pq.erase(temp);
+            pi temp = pq.top();
+            pq.pop();
             int steps = temp.first;
             int num = temp.second;
             if(num == end) return steps;
             for(auto c : arr){
                 if(dist[(num*c)%mod] > steps+1){
-                    if(dist[(num*c)%mod] != INT_MAX) pq.erase({(num*c)%mod, steps});
                     dist[(num*c)%mod] = steps+1;
-                    pq.insert({steps+1, (num*c)%mod});
+                    pq.push({steps+1, (num*c)%mod});
                 }
             }
         }
-        if(dist[end] == INT_MAX) return -1;
-        return dist[end];
+        return -1;
     }
 };
 
