@@ -94,6 +94,10 @@ int find(int parent[],int node)
 void unionSet(int parent[],int u,int v)
 {
 	//add code here.
-	parent[find(parent, u)] = find(parent, v);
+	int ulp = find(parent, u);
+	int vlp = find(parent, v);
+	if(ulp == vlp) return;
+	parent[ulp] = vlp;
+	return;
 	
 }
