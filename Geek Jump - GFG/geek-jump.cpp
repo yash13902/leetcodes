@@ -26,15 +26,28 @@ class Solution {
         // return recur(height, n-1, dp);
         
         //tabulation
-        vector<int> dp(n, 0);
-        dp[0] = 0;
+        // vector<int> dp(n, 0);
+        // dp[0] = 0;
+        // for(int i=1;i<n;i++){
+        //     int l = dp[i-1] + abs(height[i-1] - height[i]);
+        //     int r = INT_MAX;
+        //     if(i > 1) r = dp[i-2] + abs(height[i-2] - height[i]) ;
+        //     dp[i] = min(l,r);
+        // }
+        // return dp[n-1];
+        
+        //space optimization
+        int prev1 = 0, prev2 = 0;
         for(int i=1;i<n;i++){
-            int l = dp[i-1] + abs(height[i-1] - height[i]);
+            int l = prev1 + abs(height[i-1] - height[i]);
             int r = INT_MAX;
-            if(i > 1) r = dp[i-2] + abs(height[i-2] - height[i]) ;
-            dp[i] = min(l,r);
+            if(i > 1) r = prev2 + abs(height[i-2] - height[i]) ;
+            int curr = min(l,r);
+            prev2 = prev1;
+            prev1 = curr;
         }
-        return dp[n-1];
+        return prev1;
+        
     }
 };
 
