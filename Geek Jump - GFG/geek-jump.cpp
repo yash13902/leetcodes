@@ -20,8 +20,21 @@ class Solution {
     
     int minimumEnergy(vector<int>& height, int n) {
         // Code here
-        vector<int> dp(n+1, -1);
-        return recur(height, n-1, dp);
+        
+        // //Memoiztion
+        // vector<int> dp(n+1, -1);
+        // return recur(height, n-1, dp);
+        
+        //tabulation
+        vector<int> dp(n, 0);
+        dp[0] = 0;
+        for(int i=1;i<n;i++){
+            int l = dp[i-1] + abs(height[i-1] - height[i]);
+            int r = INT_MAX;
+            if(i > 1) r = dp[i-2] + abs(height[i-2] - height[i]) ;
+            dp[i] = min(l,r);
+        }
+        return dp[n-1];
     }
 };
 
