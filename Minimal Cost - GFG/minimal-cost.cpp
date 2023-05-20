@@ -21,8 +21,24 @@ class Solution {
   
     int minimizeCost(vector<int>& height, int n, int k) {
         // Code here
-        vector<int> dp(n+1, -1);
-        return recur(dp, height, n-1, k);
+        
+        //memoization
+        // vector<int> dp(n+1, -1);
+        // return recur(dp, height, n-1, k);
+        
+        //tabulation
+        vector<int> dp(n,0);
+        dp[0] = 0;
+        for(int i=1;i<n;i++){
+            int ans = INT_MAX;
+            for(int j=1;j<=k;j++){
+                if(i>=j){
+                    ans = min(ans, dp[i-j] + abs(height[i] - height[i-j]));
+                }
+            }
+            dp[i] = ans;
+        }
+        return dp[n-1];
     }
 };
 
