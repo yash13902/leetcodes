@@ -11,11 +11,12 @@ class Solution {
         if(n == 0) return 0;
         if(dp[n] != -1) return dp[n];
         vector<int> dis;
+        int ans = INT_MAX;
         for(int i=1;i<=k;i++){
             if(n-i >= 0)
-                dis.push_back(recur(dp, height, n-i, k) + abs(height[n] - height[n-i]));
+                ans = min(ans, recur(dp, height, n-i, k) + abs(height[n] - height[n-i]));
         }
-        return dp[n] = *min_element(dis.begin(), dis.end());
+        return dp[n] = ans;
     }
   
     int minimizeCost(vector<int>& height, int n, int k) {
