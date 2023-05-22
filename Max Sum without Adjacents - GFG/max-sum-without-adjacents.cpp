@@ -20,9 +20,19 @@ public:
 	// calculate the maximum sum with out adjacent
 	int findMaxSum(int *arr, int n) {
 	    // code here
-	    vector<int> dp(n+1, -1);
-	    int ans = recur(arr, 0, n, dp);
-	    return ans;
+	   // vector<int> dp(n+1, -1);
+	   // int ans = recur(arr, 0, n, dp);
+	   // return ans;
+	   
+	   vector<int> dp(n, 0);
+	   for(int i=n-1;i>=0;i--){
+	       int pick = arr[i];
+	       if(i+2 < n) pick += dp[i+2];
+	       int notpick = 0;
+	       if(i+1 < n) notpick += dp[i+1];
+	       dp[i] = max(pick, notpick);
+	   }
+	   return dp[0];
 	}
 };
 
