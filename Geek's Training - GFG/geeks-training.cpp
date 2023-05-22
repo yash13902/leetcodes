@@ -6,30 +6,32 @@ using namespace std;
 class Solution {
   public:
   
-    int recur(vector<vector<int>> &points, int index, int old, vector<vector<int>> &dp){
-        if(index  == 0){
-            int maxi = 0;
-            for(int i=0;i<3;i++){
-                if(i == old) continue;
-                maxi = max(maxi, points[0][i]);
-            }
-            return maxi;
-        };
+    int recur(vector<vector<int>> &points, int n, int index, int old, vector<vector<int>> &dp){
+        if(index >= n) return 0;
         if(dp[index][old] != -1) return dp[index][old];
-        int maxi = 0;
-        for(int i=0;i<3;i++){
-            if(i == old) continue;
-            int point = points[index][i] + recur(points, index-1, i, dp);
-            maxi = max(maxi, point);
+        int r = 0, f = 0, l = 0;
+        if(old == 0){
+            f = points[index][1] + recur(points, n, index+1, 1, dp);
+            l = points[index][2] + recur(points, n, index+1, 2, dp);
+        }else if(old == 1){
+            r = points[index][0] + recur(points, n, index+1, 0, dp);
+            l = points[index][2] + recur(points, n, index+1, 2, dp);
+        }else{
+            r = points[index][0] + recur(points, n, index+1, 0, dp);
+            f = points[index][1] + recur(points, n, index+1, 1, dp);
         }
-        return dp[index][old] = maxi;
+        int a = max(r,f);
+        return dp[index][old] = max(a, l);
     }
   
     int maximumPoints(vector<vector<int>>& points, int n) {
         // Code here
-        vector<vector<int>> dp(n+1, vector<int>(5,-1));
-        int a1 = recur(points, n-1, 3, dp);
-        return a1;
+        vector<vector<int>> dp(n, vector<int>(4,-1));
+        int a1 = recur(points, n, 0, 0, dp);
+        int a2 = recur(points, n, 0, 1, dp);
+        int a3 = recur(points, n, 0, 2, dp);
+        int a = max(a1,a2);
+        return max(a, a3);
     }
 };
 
