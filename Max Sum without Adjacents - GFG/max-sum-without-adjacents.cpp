@@ -25,14 +25,17 @@ public:
 	   // return ans;
 	   
 	   vector<int> dp(n, 0);
+	   int  prev2 = 0, prev=0;
 	   for(int i=n-1;i>=0;i--){
 	       int pick = arr[i];
-	       if(i+2 < n) pick += dp[i+2];
+	       if(i+2 < n) pick += prev2;
 	       int notpick = 0;
-	       if(i+1 < n) notpick += dp[i+1];
-	       dp[i] = max(pick, notpick);
+	       if(i+1 < n) notpick += prev;
+	       int cur = max(pick, notpick);
+	       prev2 = prev;
+	       prev = cur;
 	   }
-	   return dp[0];
+	   return prev;
 	}
 };
 
