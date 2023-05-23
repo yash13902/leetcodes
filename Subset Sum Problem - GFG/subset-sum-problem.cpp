@@ -28,22 +28,38 @@ public:
         // vector<vector<int>> dp(n+1, vector<int>(sum+1, -1));
         // return recur(arr, sum, n-1, dp);
         
-        vector<vector<bool>> dp(n, vector<bool>(sum+1, 0));
-        for(int i=0;i<n;i++){
-            dp[i][0] = true;
-        }
-        dp[0][arr[0]] = true;
+        // vector<vector<bool>> dp(n, vector<bool>(sum+1, 0));
+        // for(int i=0;i<n;i++){
+        //     dp[i][0] = true;
+        // }
+        // dp[0][arr[0]] = true;
+        // for(int i=1;i<n;i++){
+        //     for(int k=1;k<=sum;k++){
+        //         bool notpick = dp[i-1][k];
+        //         bool pick = false;
+        //         if(k >= arr[i]){
+        //             pick = dp[i-1][k-arr[i]];
+        //         }
+        //         dp[i][k] = pick || notpick;
+        //     }
+        // }
+        // return dp[n-1][sum];
+        
+        vector<bool> prev(sum+1, 0), curr(sum+1,0);
+        prev[0] = curr[0] = true;
+        prev[arr[0]] = true;
         for(int i=1;i<n;i++){
             for(int k=1;k<=sum;k++){
-                bool notpick = dp[i-1][k];
+                bool notpick = prev[k];
                 bool pick = false;
                 if(k >= arr[i]){
-                    pick = dp[i-1][k-arr[i]];
+                    pick = prev[k-arr[i]];
                 }
-                dp[i][k] = pick || notpick;
+                curr[k] = pick || notpick;
             }
+            prev = curr;
         }
-        return dp[n-1][sum];
+        return prev[sum];
     }
 };
 
