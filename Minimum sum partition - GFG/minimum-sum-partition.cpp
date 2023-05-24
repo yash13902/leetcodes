@@ -25,7 +25,7 @@ class Solution{
 	        }
 	    }
 	    int mini = INT_MAX;
-	    for(int i=0;i<sum;i++){
+	    for(int i=0;i<=sum;i++){
 	        if(dp[n-1][i] == true){
 	            int s1 = i;
 	            int s2 = sum - i;
