@@ -33,7 +33,7 @@ class Solution
             else dp[0][t] = 0;
         }
         for(int i=1;i<n;i++){
-            for(int t=1;t<=W;t++){
+            for(int t=0;t<=W;t++){
                 int pick = -1e8, notpick= -1e8;
                 if(wt[i] <= t) pick=val[i]+dp[i-1][t-wt[i]];
                 notpick = dp[i-1][t];
