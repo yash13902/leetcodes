@@ -27,20 +27,37 @@ class Solution
     //   vector<vector<int>> dp(n, vector<int>(W+1, -1));
     //   return recur(W, n-1, wt, val, dp);
     
-        vector<vector<int>> dp(n, vector<int>(W+1, 0));
+        // vector<vector<int>> dp(n, vector<int>(W+1, 0));
+        // for(int t=1;t<=W;t++){
+        //     if(wt[0] <= t) dp[0][t] = val[0];
+        //     else dp[0][t] = 0;
+        // }
+        // for(int i=1;i<n;i++){
+        //     for(int t=0;t<=W;t++){
+        //         int pick = -1e8, notpick= -1e8;
+        //         if(wt[i] <= t) pick=val[i]+dp[i-1][t-wt[i]];
+        //         notpick = dp[i-1][t];
+        //         dp[i][t] = max(pick, notpick);
+        //     }
+        // }
+        // return dp[n-1][W];
+        
+        vector<int> dp(W+1, 0);
         for(int t=1;t<=W;t++){
-            if(wt[0] <= t) dp[0][t] = val[0];
-            else dp[0][t] = 0;
+            if(wt[0] <= t) dp[t] = val[0];
+            else dp[t] = 0;
         }
         for(int i=1;i<n;i++){
+            vector<int> temp(W+1, 0);
             for(int t=0;t<=W;t++){
-                int pick = -1e8, notpick= -1e8;
-                if(wt[i] <= t) pick=val[i]+dp[i-1][t-wt[i]];
-                notpick = dp[i-1][t];
-                dp[i][t] = max(pick, notpick);
+                int pick = -1e8, notpick = -1e8;
+                if(wt[i] <= t) pick = val[i]+dp[t-wt[i]];
+                notpick = dp[t];
+                temp[t] = max(pick, notpick);
             }
+            dp = temp;
         }
-        return dp[n-1][W];
+        return dp[W];
     }
 };
 
