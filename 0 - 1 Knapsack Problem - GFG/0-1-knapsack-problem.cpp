@@ -48,14 +48,13 @@ class Solution
             else dp[t] = 0;
         }
         for(int i=1;i<n;i++){
-            vector<int> temp(W+1, 0);
             for(int t=W;t>=0;t--){
                 int pick = -1e8, notpick = -1e8;
                 if(wt[i] <= t) pick = val[i]+dp[t-wt[i]];
                 notpick = dp[t];
-                temp[t] = max(pick, notpick);
+                int temp = max(pick, notpick);
+                dp[t] = temp;
             }
-            dp = temp;
         }
         return dp[W];
     }
