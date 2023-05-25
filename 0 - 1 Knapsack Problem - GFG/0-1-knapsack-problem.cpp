@@ -49,7 +49,7 @@ class Solution
         }
         for(int i=1;i<n;i++){
             vector<int> temp(W+1, 0);
-            for(int t=0;t<=W;t++){
+            for(int t=W;t>=0;t--){
                 int pick = -1e8, notpick = -1e8;
                 if(wt[i] <= t) pick = val[i]+dp[t-wt[i]];
                 notpick = dp[t];
