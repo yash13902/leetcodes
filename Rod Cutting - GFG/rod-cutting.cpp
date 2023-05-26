@@ -35,14 +35,15 @@ class Solution{
             dp[i] = i*price[0];
         }
         for(int i=1;i<n;i++){
-            vector<int> temp(n+1, 0);
+            // vector<int> temp(n+1, 0);
             for(int k=0;k<n+1;k++){
                 int nottake = 0 + dp[k];
                 int take = INT_MIN;
-                if(i+1 <= k) take = price[i] + temp[k-i-1];
-                temp[k] = max(take, nottake);
+                if(i+1 <= k) take = price[i] + dp[k-i-1];
+                int val = max(take, nottake);
+                dp[k] = val;
             }
-            dp = temp;
+            // dp = temp;
         }
         return dp[n];
     }
