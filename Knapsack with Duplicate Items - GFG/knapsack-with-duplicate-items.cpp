@@ -25,8 +25,22 @@ public:
     int knapSack(int n, int w, int val[], int wt[])
     {
         // code here
-        vector<vector<int>> dp(n, vector<int>(w+1, -1));
-        return recur(n-1, w, val, wt, dp);
+        // vector<vector<int>> dp(n, vector<int>(w+1, -1));
+        // return recur(n-1, w, val, wt, dp);
+        
+        vector<vector<int>> dp(n, vector<int>(w+1, 0));
+        for(int i=0;i<=w;i++){
+            dp[0][i] = val[0]*(i/wt[0]);
+        }
+        for(int i=1;i<n;i++){
+            for(int k=0;k<=w;k++){
+                int pick = INT_MIN, notpick = INT_MIN;
+                if(k >= wt[i]) pick = val[i] + dp[i][k-wt[i]];
+                notpick = dp[i-1][k];
+                dp[i][k] = max(pick, notpick);
+            }
+        }
+        return dp[n-1][w];
     }
 };
 
