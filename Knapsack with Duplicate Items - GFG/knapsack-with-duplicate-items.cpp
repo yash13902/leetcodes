@@ -13,7 +13,6 @@ public:
     int recur(int index, int w, int val[], int wt[], vector<vector<int>> &dp){
         if(index == 0){
             return val[0]*(w/wt[0]);
-            // return 0;
         }
         if(dp[index][w] != -1) return dp[index][w];
         int pick = INT_MIN, notpick = INT_MIN;
@@ -28,19 +27,35 @@ public:
         // vector<vector<int>> dp(n, vector<int>(w+1, -1));
         // return recur(n-1, w, val, wt, dp);
         
-        vector<vector<int>> dp(n, vector<int>(w+1, 0));
+        // vector<vector<int>> dp(n, vector<int>(w+1, 0));
+        // for(int i=0;i<=w;i++){
+        //     dp[0][i] = val[0]*(i/wt[0]);
+        // }
+        // for(int i=1;i<n;i++){
+        //     for(int k=0;k<=w;k++){
+        //         int pick = INT_MIN, notpick = INT_MIN;
+        //         if(k >= wt[i]) pick = val[i] + dp[i][k-wt[i]];
+        //         notpick = dp[i-1][k];
+        //         dp[i][k] = max(pick, notpick);
+        //     }
+        // }
+        // return dp[n-1][w];
+        
+        vector<int> dp(w+1, 0);
         for(int i=0;i<=w;i++){
-            dp[0][i] = val[0]*(i/wt[0]);
+            dp[i] = val[0]*(i/wt[0]);
         }
         for(int i=1;i<n;i++){
+            vector<int> temp(w+1, 0);
             for(int k=0;k<=w;k++){
                 int pick = INT_MIN, notpick = INT_MIN;
-                if(k >= wt[i]) pick = val[i] + dp[i][k-wt[i]];
-                notpick = dp[i-1][k];
-                dp[i][k] = max(pick, notpick);
+                if(k >= wt[i]) pick = val[i] + temp[k-wt[i]];
+                notpick = dp[k];
+                temp[k] = max(pick, notpick);
             }
+            dp = temp;
         }
-        return dp[n-1][w];
+        return dp[w];
     }
 };
 
