@@ -25,8 +25,26 @@ public:
     int matrixMultiplication(int n, int arr[])
     {
         // code here
-        vector<vector<int>> dp(n, vector<int>(n, -1));
-        return recur(arr, 1, n-1, dp);
+        // vector<vector<int>> dp(n, vector<int>(n, -1));
+        // return recur(arr, 1, n-1, dp);
+        
+        
+        vector<vector<int>> dp(n, vector<int>(n, 0));
+        for(int i=0;i<n;i++){
+            dp[i][i] = 0;
+        }
+        for(int i=n-1;i>=0;i--){
+            for(int j=i+1;j<n;j++){
+                int mini = 1e9;
+                int steps = 0;
+                for(int k=i;k<j;k++){
+                    steps = (arr[i-1]*arr[k]*arr[j])+dp[i][k] + dp[k+1][j];
+                    mini = min(mini, steps);
+                }
+                dp[i][j] = mini;
+            }
+        }
+        return dp[1][n-1];
     }
 };
 
