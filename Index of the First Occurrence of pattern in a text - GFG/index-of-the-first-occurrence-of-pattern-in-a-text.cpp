@@ -9,11 +9,15 @@ class Solution {
   public:
     int findMatching(string text, string pat) {
         // Code here
-        if(text.size() < pat.size()) return -1;
-        int i=0, j=0, n=text.size(), m=pat.size();
-        for(int i=0;i<=n-m;i++){
-            string temp = text.substr(i,m);
-            if(temp == pat) return i;
+        // if(text.size() < pat.size()) return -1;
+        // int i=0, j=0, n=text.size(), m=pat.size();
+        // for(int i=0;i<=n-m;i++){
+        //     string temp = text.substr(i,m);
+        //     if(temp == pat) return i;
+        // }
+        // return -1;
+        if(text.find(pat) != string::npos){
+            return text.find(pat);
         }
         return -1;
     }
